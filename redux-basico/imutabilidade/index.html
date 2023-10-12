@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Imutabilidade - Immer</title>
+    <script src="./immer.umd.production.min.js"></script>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <script>
+      // const obj1 = {
+      //   nome: "Mateus",
+      //   idade: 22,
+      // }
+
+      // const obj2 = immer.produce(obj1, (draft) => {
+      //   draft.idade = 24
+      // })
+
+      // console.log("obj1", obj1)
+      // console.log("obj2", obj2)
+
+      const MUDAR_NOME = "MUDAR_NOME"
+      const INITIAL_VALUE = {
+        nome: "Mateus",
+        idade: 22,
+      }
+
+      function changeName(payload) {
+        return { type: MUDAR_NOME, payload }
+      }
+      const reducer = immer.produce((state, action) => {
+        switch (action.type) {
+          case MUDAR_NOME:
+            state.nome = action.payload
+            break
+        }
+      }, INITIAL_VALUE)
+
+      const store = Redux.createStore(
+        reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+          window.__REDUX_DEVTOOLS_EXTENSION__()
+      )
+
+      store.dispatch(changeName("Juliana"))
+      store.dispatch(changeName("Guilherme"))
+      store.dispatch(changeName("Júlia"))
+    </script>
+  </body>
+</html>
