@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux - Action</title>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const INCREMENTAR = "INCREMENTAR"
+      const SOMAR = "SOMAR"
+
+      function reducer(state = 10, action) {
+        if (action.type === INCREMENTAR) return state + 1
+        if (action.type === SOMAR) return state + action.payload
+        return state
+      }
+      const store = Redux.createStore(reducer)
+
+      let state = store.getState()
+      console.log(state) // 10
+
+      // Envia um objeto com type e payload para o reducer
+      store.dispatch({ type: SOMAR, payload: 25 })
+      store.dispatch({ type: INCREMENTAR })
+
+      state = store.getState()
+      console.log(state) // 35
+    </script>
+  </body>
+</html>
