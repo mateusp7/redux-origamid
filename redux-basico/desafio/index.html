@@ -31,13 +31,15 @@
 
       const render = () => {
         const { aluno, aulas } = store.getState()
+        const completed_class = aulas.filter((aula) => aula.completa)
+
         const nome = document.getElementById("nome")
         const email = document.getElementById("email")
         const tempo_restante = document.getElementById("tempo_restante")
         const total_aulas_completas = document.getElementById(
           "total_aulas_completas"
         )
-        const completed_class = aulas.filter((aula) => aula.completa)
+
         nome.innerText = aluno.nome
         email.innerText = aluno.email
         tempo_restante.innerText = aluno.diasRestantes
