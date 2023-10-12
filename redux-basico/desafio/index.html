@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desafio</title>
+    <script src="./immer.umd.production.min.js"></script>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h1>Nome: <span id="nome"></span></h1>
+      <h1>Email: <span id="email"></span></h1>
+      <h1>Tempo restante: <span id="tempo_restante"></span></h1>
+      <h1>
+        Total de aulas completas: <span id="total_aulas_completas"></span>
+      </h1>
+    </div>
+    <script type="module">
+      import store from "./store/configureStore.js"
+      import {
+        incrementar_tempo,
+        reduzir_tempo,
+        modificar_email,
+      } from "./store/aluno.js"
+      import {
+        completar_aula,
+        completar_curso,
+        resetar_curso,
+      } from "./store/aulas.js"
+
+      const render = () => {
+        const { aluno, aulas } = store.getState()
+        const nome = document.getElementById("nome")
+        const email = document.getElementById("email")
+        const tempo_restante = document.getElementById("tempo_restante")
+        const total_aulas_completas = document.getElementById(
+          "total_aulas_completas"
+        )
+        const completed_class = aulas.filter((aula) => aula.completa)
+        nome.innerText = aluno.nome
+        email.innerText = aluno.email
+        tempo_restante.innerText = aluno.diasRestantes
+        total_aulas_completas.innerText = completed_class.length
+      }
+
+      store.subscribe(render)
+
+      store.dispatch(incrementar_tempo())
+      store.dispatch(reduzir_tempo())
+      store.dispatch(modificar_email("mateuspaulo1337@gmail.com"))
+      store.dispatch(completar_aula(2))
+      store.dispatch(completar_curso())
+      store.dispatch(resetar_curso())
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desafio</title>
+    <script src="./immer.umd.production.min.js"></script>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      import store from "./store/configureStore.js"
+      import { incrementar } from "./store/contador.js"
+
+      store.subscribe(() => {
+        console.log("teste")
+      })
+
+      store.dispatch(incrementar())
+    </script>
+  </body>
+</html>
