@@ -7,9 +7,22 @@
     <script src="./redux.min.js"></script>
   </head>
   <body>
+    <div>
+      <button id="button">Somar</button>
+      <p id="result"></p>
+    </div>
     <script>
+      // constantes
       const INCREMENTAR = "INCREMENTAR"
       const SOMAR = "SOMAR"
+
+      // Action creator
+      function incrementar() {
+        return { type: INCREMENTAR }
+      }
+      function somar(paylod) {
+        return { type: SOMAR, payload }
+      }
 
       function reducer(state = 10, action) {
         if (action.type === INCREMENTAR) return state + 1
@@ -19,14 +32,16 @@
       const store = Redux.createStore(reducer)
 
       let state = store.getState()
-      console.log(state) // 10
+      // store.dispatch(somar(25))
+      // store.dispatch(incrementar())
 
-      // Envia um objeto com type e payload para o reducer
-      store.dispatch({ type: SOMAR, payload: 25 })
-      store.dispatch({ type: INCREMENTAR })
-
-      state = store.getState()
-      console.log(state) // 35
+      const button = document.getElementById("button")
+      const result = document.getElementById("result")
+      button.addEventListener("click", () => {
+        state = store.getState()
+        store.dispatch(incrementar())
+        result.innerHTML = state
+      })
     </script>
   </body>
 </html>
