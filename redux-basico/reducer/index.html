@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux - Action</title>
+    <script src="./redux.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <button id="button">Somar</button>
+      <h1>Total: <span id="result"></span></h1>
+
+      <button id="abrir">abrir</button>
+      <button id="fechar">fechar</button>
+    </div>
+    <script>
+      // constantes
+      const INCREMENTAR = "INCREMENTAR"
+      const SOMAR = "SOMAR"
+      const ABRIR = "ABRIR"
+      const FECHAR = "FECHAR"
+      const INITIAL_INCREMENT_VALUE = 0
+      const INITIAL_MODAL_VALUE = false
+
+      // Action creator
+      function incrementar() {
+        return { type: INCREMENTAR }
+      }
+      function somar(paylod) {
+        return { type: SOMAR, payload }
+      }
+
+      function contador(state = INITIAL_INCREMENT_VALUE, action) {
+        switch (action.type) {
+          case INCREMENTAR:
+            return state + 1
+          case SOMAR:
+            return state + action.payload
+          default:
+            return state
+        }
+      }
+      function modal(state = INITIAL_MODAL_VALUE, action) {
+        switch (action.type) {
+          case ABRIR:
+            return true
+          case FECHAR:
+            return false
+          default:
+            return state
+        }
+      }
+
+      const reducer = Redux.combineReducers({ contador, modal })
+      const store = Redux.createStore(reducer)
+
+      function render() {
+        const { contador, modal } = store.getState()
+        const result = document.getElementById("result")
+        if (modal) {
+          result.style.display = "inline-block"
+        } else {
+          result.style.display = "none"
+        }
+        result.innerText = contador
+      }
+      render()
+
+      store.subscribe(render)
+
+      const button = document.getElementById("button")
+      button.addEventListener("click", () => store.dispatch(incrementar()))
+
+      const abrir = document.getElementById("abrir")
+      const fechar = document.getElementById("fechar")
+      abrir.addEventListener("click", () => store.dispatch({ type: "ABRIR" }))
+      fechar.addEventListener("click", () => store.dispatch({ type: "FECHAR" }))
+    </script>
+  </body>
+</html>
