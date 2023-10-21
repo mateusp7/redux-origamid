@@ -2,7 +2,7 @@ const COMPLETAR_AULA = "aulas/COMPLETAR_AULA"
 const COMPLETAR_CURSO = "aulas/COMPLETAR_CURSO"
 const RESETAR_CURSO = "aulas/RESETAR_CURSO"
 
-export const completar_aula = (payload) => ({ type: COMPLETAR_AULA, payload })
+export const completar_aula = (id) => ({ type: COMPLETAR_AULA, id })
 export const completar_curso = () => ({ type: COMPLETAR_CURSO })
 export const resetar_curso = () => ({ type: RESETAR_CURSO })
 
