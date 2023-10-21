@@ -38,11 +38,11 @@ const completeClassById = (aulas, id) => {
 }
 
 const completeAllClass = (aulas) => {
-  return aulas.map((aula) => ({ ...aula, completa: true }))
+  return aulas.forEach((aula) => ({ ...aula, completa: true }))
 }
 
 const resetCourse = (aulas) => {
-  return aulas.map((aula) => ({ ...aula, completa: false }))
+  return aulas.forEach((aula) => ({ ...aula, completa: false }))
 }
 
 const reducer = (state = initialState, action) => {
